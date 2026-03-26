@@ -1,5 +1,5 @@
 /* ============================================
-   Site 3 - Sibbu & Revendra Wedding
+   Site 3 - Sibbu & Ravendra Wedding
    Script - Vanilla JS
    ============================================ */
 
