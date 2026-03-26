@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sibbu & Revendra - Wedding Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;600;700&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      background: #1a1a2e;
+      padding: 20px;
+    }
+
+    .card {
+      width: 1080px;
+      height: 1920px;
+      background: #1B3A5C;
+      background: radial-gradient(ellipse at 50% 30%, #2A5080 0%, #1B3A5C 50%, #0D1B2A 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      flex-shrink: 0;
+    }
+
+    /* Subtle texture overlay */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(201, 169, 110, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(201, 169, 110, 0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Outer border */
+    .border-outer {
+      position: absolute;
+      inset: 24px;
+      border: 2px solid #C9A96E;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Inner border */
+    .border-inner {
+      position: absolute;
+      inset: 36px;
+      border: 1px solid rgba(201, 169, 110, 0.5);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Corner decorations */
+    .corner {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .corner::before,
+    .corner::after {
+      content: '';
+      position: absolute;
+      border: 2px solid #C9A96E;
+    }
+
+    .corner-tl {
+      top: 36px;
+      left: 36px;
+    }
+    .corner-tl::before {
+      top: -1px;
+      left: -1px;
+      width: 80px;
+      height: 80px;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 0;
+    }
+    .corner-tl::after {
+      top: 10px;
+      left: 10px;
+      width: 50px;
+      height: 50px;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 0;
+      border-top-left-radius: 30px;
+      border-color: rgba(201, 169, 110, 0.6);
+    }
+
+    .corner-tr {
+      top: 36px;
+      right: 36px;
+    }
+    .corner-tr::before {
+      top: -1px;
+      right: -1px;
+      width: 80px;
+      height: 80px;
+      border-left: none;
+      border-bottom: none;
+    }
+    .corner-tr::after {
+      top: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      border-left: none;
+      border-bottom: none;
+      border-top-right-radius: 30px;
+      border-color: rgba(201, 169, 110, 0.6);
+    }
+
+    .corner-bl {
+      bottom: 36px;
+      left: 36px;
+    }
+    .corner-bl::before {
+      bottom: -1px;
+      left: -1px;
+      width: 80px;
+      height: 80px;
+      border-right: none;
+      border-top: none;
+    }
+    .corner-bl::after {
+      bottom: 10px;
+      left: 10px;
+      width: 50px;
+      height: 50px;
+      border-right: none;
+      border-top: none;
+      border-bottom-left-radius: 30px;
+      border-color: rgba(201, 169, 110, 0.6);
+    }
+
+    .corner-br {
+      bottom: 36px;
+      right: 36px;
+    }
+    .corner-br::before {
+      bottom: -1px;
+      right: -1px;
+      width: 80px;
+      height: 80px;
+      border-left: none;
+      border-top: none;
+    }
+    .corner-br::after {
+      bottom: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      border-left: none;
+      border-top: none;
+      border-bottom-right-radius: 30px;
+      border-color: rgba(201, 169, 110, 0.6);
+    }
+
+    /* Content wrapper */
+    .content {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 800px;
+      gap: 0;
+    }
+
+    /* Ornamental line with diamond */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 400px;
+      gap: 0;
+      margin: 10px 0;
+    }
+
+    .ornament-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #C9A96E);
+    }
+
+    .ornament-line.right {
+      background: linear-gradient(to left, transparent, #C9A96E);
+    }
+
+    .ornament-diamond {
+      width: 12px;
+      height: 12px;
+      background: #C9A96E;
+      transform: rotate(45deg);
+      margin: 0 12px;
+      flex-shrink: 0;
+    }
+
+    .ornament-diamond-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .ornament-dot {
+      width: 4px;
+      height: 4px;
+      background: #C9A96E;
+      border-radius: 50%;
+    }
+
+    /* Title */
+    .title-invitation {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: #C9A96E;
+      letter-spacing: 3px;
+      margin-top: 20px;
+    }
+
+    /* Shubh Vivah */
+    .shubh-vivah {
+      font-size: 2.8rem;
+      color: #C9A96E;
+      margin: 30px 0 10px;
+      letter-spacing: 6px;
+      font-weight: 300;
+      text-shadow: 0 0 20px rgba(201, 169, 110, 0.3);
+    }
+
+    .shubh-vivah-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(201, 169, 110, 0.7);
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      font-weight: 200;
+      margin-bottom: 30px;
+    }
+
+    /* Couple names */
+    .couple-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      color: #ffffff;
+      font-weight: 300;
+      letter-spacing: 8px;
+      line-height: 1.15;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .couple-and {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      color: #C9A96E;
+      margin: 8px 0;
+      font-weight: 400;
+    }
+
+    /* Divider */
+    .divider {
+      width: 300px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #C9A96E, transparent);
+      margin: 35px 0;
+    }
+
+    /* Invitation text */
+    .invite-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 200;
+      letter-spacing: 2px;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    /* Events */
+    .events {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+
+    .event-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .event-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: #C9A96E;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .event-date {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 300;
+      letter-spacing: 3px;
+    }
+
+    .event-separator {
+      width: 60px;
+      height: 1px;
+      background: rgba(201, 169, 110, 0.3);
+      margin: 2px auto;
+    }
+
+    /* Venue */
+    .venue {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: rgba(201, 169, 110, 0.7);
+      font-style: italic;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    /* Save the date */
+    .save-date {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: #C9A96E;
+      letter-spacing: 2px;
+      margin-top: 10px;
+      text-shadow: 0 0 15px rgba(201, 169, 110, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Borders -->
+    <div class="border-outer"></div>
+    <div class="border-inner"></div>
+
+    <!-- Corner decorations -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Top ornament -->
+      <div class="ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-diamond-wrap">
+          <div class="ornament-dot"></div>
+          <div class="ornament-diamond"></div>
+          <div class="ornament-dot"></div>
+        </div>
+        <div class="ornament-line right"></div>
+      </div>
+
+      <!-- Title -->
+      <div class="title-invitation">Wedding Invitation</div>
+
+      <!-- Shubh Vivah -->
+      <div class="shubh-vivah">शुभ विवाह</div>
+      <div class="shubh-vivah-sub">Shubh Vivah</div>
+
+      <!-- Couple names -->
+      <div class="couple-name">Sibbu</div>
+      <div class="couple-and">&amp;</div>
+      <div class="couple-name">Revendra</div>
+
+      <!-- Divider -->
+      <div class="divider"></div>
+
+      <!-- Invitation text -->
+      <div class="invite-text">
+        Together with their families<br>
+        invite you to celebrate their wedding
+      </div>
+
+      <!-- Events -->
+      <div class="events">
+        <div class="event-item">
+          <div class="event-name">Tilak</div>
+          <div class="event-date">15th April 2026</div>
+        </div>
+        <div class="event-separator"></div>
+        <div class="event-item">
+          <div class="event-name">Mehndi</div>
+          <div class="event-date">23rd April 2026</div>
+        </div>
+        <div class="event-separator"></div>
+        <div class="event-item">
+          <div class="event-name">Haldi &amp; Sangeet</div>
+          <div class="event-date">24th April 2026</div>
+        </div>
+        <div class="event-separator"></div>
+        <div class="event-item">
+          <div class="event-name">Wedding</div>
+          <div class="event-date">25th April 2026</div>
+        </div>
+      </div>
+
+      <!-- Venue -->
+      <div class="venue">Village Sanda, Post Saruandha, Teh. Deoser, District Singrauli MP - 486889</div>
+
+      <!-- Bottom ornament -->
+      <div class="ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-diamond-wrap">
+          <div class="ornament-dot"></div>
+          <div class="ornament-diamond"></div>
+          <div class="ornament-dot"></div>
+        </div>
+        <div class="ornament-line right"></div>
+      </div>
+
+      <!-- Save the date -->
+      <div class="save-date">Save the Date</div>
+    </div>
+  </div>
+
+  <!-- Download Button (won't appear in the image) -->
+  <button id="downloadBtn" style="
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 14px 28px;
+    background: #C9A96E;
+    color: #0D1B2A;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: all 0.3s ease;
+  " onmouseover="this.style.background='#d4b87a';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#C9A96E';this.style.transform='translateY(0)'">
+    ⬇ Download HD Image
+  </button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+      var btn = this;
+      btn.textContent = 'Generating...';
+      btn.disabled = true;
+      var card = document.querySelector('.card');
+      html2canvas(card, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: null,
+        width: 1080,
+        height: 1920,
+        logging: false
+      }).then(function(canvas) {
+        var link = document.createElement('a');
+        link.download = 'Sibbu-Revendra-Wedding-Invitation.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.textContent = '⬇ Download HD Image';
+        btn.disabled = false;
+      }).catch(function() {
+        btn.textContent = '⬇ Download HD Image';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      });
+    });
+  </script>
+</body>
+</html>
